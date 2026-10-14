@@ -34,6 +34,18 @@ public class AuthController {
         return auth.signup(r, ClientInfo.ip(req));
     }
 
+    public record ResendRequest(@jakarta.validation.constraints.NotBlank String signupToken) {}
+
+    @PostMapping("/signup/resend")
+    public Map<String, Object> resend(@Valid @RequestBody ResendRequest r, HttpServletRequest req) {
+        return auth.resendSignupOtp(r.signupToken(), ClientInfo.ip(req));
+    }
+
+    @GetMapping("/availability")
+    public Map<String, Object> availability(@RequestParam(required = false) String phone, @RequestParam(required = false) String email, HttpServletRequest req) {
+        return auth.availability(phone, email, ClientInfo.ip(req));
+    }
+
     @PostMapping("/otp/verify")
     public ResponseEntity<AuthDtos.AuthResponse> verify(@Valid @RequestBody AuthDtos.OtpVerifyRequest r, HttpServletRequest req) {
         return withCookie(auth.verifySignup(r, ClientInfo.ip(req), ClientInfo.userAgent()));

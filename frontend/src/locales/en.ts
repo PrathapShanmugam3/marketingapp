@@ -1,0 +1,46 @@
+/** English strings. Validation message keys are shared with the backend (messages.properties). */
+export const en: Record<string, string> = {
+  'vr.required': 'This field is required.',
+  'vr.name.invalid': 'Enter a valid name (2–100 letters).',
+  'vr.mobile.invalid': 'Enter a valid 10-digit mobile number.',
+  'vr.email.invalid': 'Enter a valid email address.',
+  'vr.password.weak': 'Use 8+ characters with upper, lower, number and symbol.',
+  'vr.otp.invalid': 'Enter the 6-digit code.',
+  'vr.city.invalid': 'Enter your city.',
+  'vr.gstin.invalid': 'Enter a valid 15-character GSTIN.',
+  'vr.pincode.invalid': 'Enter a valid 6-digit PIN code.',
+  'vr.url.invalid': 'Enter a valid https:// link.',
+  'vr.text.unsupported': 'Remove unsupported characters.',
+  'vr.money.invalid': 'Enter a valid amount.',
+  'vr.size': 'This text is too long.',
+  'vr.future.invalid': 'Choose a time at least 10 minutes from now.',
+  'password.mismatch': 'Passwords do not match.',
+  'terms.required': 'Please accept the Terms and Privacy Policy.',
+
+  'nav.dashboard': 'Dashboard', 'nav.contacts': 'Contacts', 'nav.leads': 'Leads', 'nav.templates': 'Templates', 'nav.campaigns': 'Campaigns', 'nav.inbox': 'Inbox',
+  'nav.reviews': 'Reviews', 'nav.forms': 'Lead forms', 'nav.social': 'Social posts', 'nav.automations': 'Automations', 'nav.links': 'Smart links', 'nav.pages': 'Landing pages',
+  'nav.apps': 'App promotion', 'nav.offers': 'Offers', 'nav.conversions': 'Conversions', 'nav.team': 'Team', 'nav.billing': 'Billing & wallet', 'nav.whatsapp': 'WhatsApp',
+  'nav.domains': 'Domains', 'nav.api': 'API keys', 'nav.profile': 'My profile', 'nav.business': 'Business profile', 'nav.support': 'Support', 'nav.agency': 'Client workspaces',
+  'nav.earn': 'Earnings', 'nav.offerwall': 'Offer wall', 'nav.payoutMethods': 'Payout methods', 'nav.withdraw': 'Withdraw', 'nav.kyc': 'KYC',
+  'nav.admin': 'Admin console', 'nav.finance': 'Finance', 'nav.logout': 'Log out', 'nav.more': 'More', 'nav.growth': 'Growth', 'nav.settings': 'Settings',
+
+  'common.save': 'Save', 'common.cancel': 'Cancel', 'common.delete': 'Delete', 'common.edit': 'Edit', 'common.add': 'Add', 'common.create': 'Create', 'common.search': 'Search',
+  'common.loading': 'Loading…', 'common.confirm': 'Confirm', 'common.back': 'Back', 'common.next': 'Next', 'common.send': 'Send', 'common.download': 'Download',
+  'common.loadMore': 'Load more', 'common.none': 'Nothing here yet.', 'common.yes': 'Yes', 'common.no': 'No', 'common.status': 'Status', 'common.actions': 'Actions',
+  'common.name': 'Name', 'common.phone': 'Mobile', 'common.email': 'Email', 'common.city': 'City', 'common.date': 'Date', 'common.amount': 'Amount', 'common.language': 'Language',
+  'common.retry': 'Try again', 'common.copy': 'Copy', 'common.copied': 'Copied', 'common.close': 'Close', 'common.view': 'View', 'common.upgrade': 'Upgrade plan',
+  'common.saved': 'Saved.', 'common.error': 'Something went wrong. Please try again.',
+
+  'auth.login': 'Log in', 'auth.signup': 'Create your account', 'auth.identifier': 'Email or mobile', 'auth.password': 'Password', 'auth.remember': 'Remember me',
+  'auth.forgot': 'Forgot password?', 'auth.noAccount': 'New here? Create an account', 'auth.haveAccount': 'Already have an account? Log in', 'auth.otpLogin': 'Log in with OTP',
+  'auth.passwordLogin': 'Log in with password', 'auth.sendCode': 'Send code', 'auth.verify': 'Verify', 'auth.resend': 'Resend code', 'auth.resendIn': 'Resend in {{s}} s',
+  'auth.fullName': 'Full name', 'auth.businessName': 'Business name', 'auth.businessType': 'Business type', 'auth.confirmPassword': 'Confirm password', 'auth.terms': 'I accept the Terms and Privacy Policy',
+  'auth.otpTitle': 'Verify your mobile', 'auth.otpHelp': 'We sent a 6-digit code to {{to}}.', 'auth.reset': 'Reset password', 'auth.newPassword': 'New password',
+  'auth.workspacePicker': 'Choose a workspace',
+
+  'dash.messages': 'Messages sent', 'dash.delivery': 'Delivery rate', 'dash.leads': 'New leads', 'dash.reviews': 'Review requests', 'dash.wallet': 'Wallet balance',
+  'dash.lowWallet': 'Your wallet is running low. Top up to keep campaigns running.', 'dash.onboarding': 'Get started',
+
+  'earn.pending': 'Pending', 'earn.available': 'Available', 'earn.paid': 'Paid', 'earn.clicks': 'Clicks', 'earn.conversions': 'Conversions',
+  'earn.kycNeeded': 'Complete KYC to withdraw your earnings.',
+};

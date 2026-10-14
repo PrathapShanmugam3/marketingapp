@@ -1,0 +1,46 @@
+/** Tamil strings (NFR-09). Anything missing falls back to English. */
+export const ta: Record<string, string> = {
+  'vr.required': 'இந்த புலம் தேவை.',
+  'vr.name.invalid': 'சரியான பெயரை உள்ளிடவும் (2–100 எழுத்துகள்).',
+  'vr.mobile.invalid': 'சரியான 10 இலக்க மொபைல் எண்ணை உள்ளிடவும்.',
+  'vr.email.invalid': 'சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்.',
+  'vr.password.weak': '8+ எழுத்துகள், பெரிய/சிறிய எழுத்து, எண், குறியீடு சேர்க்கவும்.',
+  'vr.otp.invalid': '6 இலக்க குறியீட்டை உள்ளிடவும்.',
+  'vr.city.invalid': 'உங்கள் நகரத்தை உள்ளிடவும்.',
+  'vr.gstin.invalid': 'சரியான 15 எழுத்து GSTIN ஐ உள்ளிடவும்.',
+  'vr.pincode.invalid': 'சரியான 6 இலக்க PIN குறியீட்டை உள்ளிடவும்.',
+  'vr.url.invalid': 'சரியான https:// இணைப்பை உள்ளிடவும்.',
+  'vr.text.unsupported': 'ஆதரிக்கப்படாத எழுத்துகளை நீக்கவும்.',
+  'vr.money.invalid': 'சரியான தொகையை உள்ளிடவும்.',
+  'vr.size': 'இந்த உரை மிக நீளமாக உள்ளது.',
+  'vr.future.invalid': 'குறைந்தது 10 நிமிடம் கழித்த நேரத்தைத் தேர்ந்தெடுக்கவும்.',
+  'password.mismatch': 'கடவுச்சொற்கள் பொருந்தவில்லை.',
+  'terms.required': 'விதிமுறைகள் மற்றும் தனியுரிமைக் கொள்கையை ஏற்கவும்.',
+
+  'nav.dashboard': 'டாஷ்போர்டு', 'nav.contacts': 'தொடர்புகள்', 'nav.leads': 'லீட்கள்', 'nav.templates': 'டெம்ப்ளேட்கள்', 'nav.campaigns': 'பிரச்சாரங்கள்', 'nav.inbox': 'இன்பாக்ஸ்',
+  'nav.reviews': 'மதிப்புரைகள்', 'nav.forms': 'லீட் படிவங்கள்', 'nav.social': 'சமூக ஊடக பதிவுகள்', 'nav.automations': 'தானியங்கிகள்', 'nav.links': 'ஸ்மார்ட் இணைப்புகள்', 'nav.pages': 'லேண்டிங் பக்கங்கள்',
+  'nav.apps': 'செயலி விளம்பரம்', 'nav.offers': 'சலுகைகள்', 'nav.conversions': 'மாற்றங்கள்', 'nav.team': 'குழு', 'nav.billing': 'பில்லிங் & வாலட்', 'nav.whatsapp': 'வாட்ஸ்அப்',
+  'nav.domains': 'டொமைன்கள்', 'nav.api': 'API விசைகள்', 'nav.profile': 'என் சுயவிவரம்', 'nav.business': 'வணிக சுயவிவரம்', 'nav.support': 'உதவி', 'nav.agency': 'வாடிக்கையாளர் பணியிடங்கள்',
+  'nav.earn': 'வருவாய்', 'nav.offerwall': 'சலுகைப் பட்டியல்', 'nav.payoutMethods': 'பணம் பெறும் முறைகள்', 'nav.withdraw': 'பணம் எடுக்க', 'nav.kyc': 'KYC',
+  'nav.admin': 'நிர்வாகம்', 'nav.finance': 'நிதி', 'nav.logout': 'வெளியேறு', 'nav.more': 'மேலும்', 'nav.growth': 'வளர்ச்சி', 'nav.settings': 'அமைப்புகள்',
+
+  'common.save': 'சேமி', 'common.cancel': 'ரத்து', 'common.delete': 'நீக்கு', 'common.edit': 'திருத்து', 'common.add': 'சேர்', 'common.create': 'உருவாக்கு', 'common.search': 'தேடு',
+  'common.loading': 'ஏற்றுகிறது…', 'common.confirm': 'உறுதிப்படுத்து', 'common.back': 'பின்', 'common.next': 'அடுத்து', 'common.send': 'அனுப்பு', 'common.download': 'பதிவிறக்கு',
+  'common.loadMore': 'மேலும் ஏற்று', 'common.none': 'இன்னும் எதுவும் இல்லை.', 'common.yes': 'ஆம்', 'common.no': 'இல்லை', 'common.status': 'நிலை', 'common.actions': 'செயல்கள்',
+  'common.name': 'பெயர்', 'common.phone': 'மொபைல்', 'common.email': 'மின்னஞ்சல்', 'common.city': 'நகரம்', 'common.date': 'தேதி', 'common.amount': 'தொகை', 'common.language': 'மொழி',
+  'common.retry': 'மீண்டும் முயற்சி', 'common.copy': 'நகலெடு', 'common.copied': 'நகலெடுக்கப்பட்டது', 'common.close': 'மூடு', 'common.view': 'பார்', 'common.upgrade': 'திட்டத்தை மேம்படுத்து',
+  'common.saved': 'சேமிக்கப்பட்டது.', 'common.error': 'ஏதோ தவறு நடந்தது. மீண்டும் முயற்சிக்கவும்.',
+
+  'auth.login': 'உள்நுழை', 'auth.signup': 'உங்கள் கணக்கை உருவாக்கவும்', 'auth.identifier': 'மின்னஞ்சல் அல்லது மொபைல்', 'auth.password': 'கடவுச்சொல்', 'auth.remember': 'என்னை நினைவில் கொள்',
+  'auth.forgot': 'கடவுச்சொல் மறந்துவிட்டதா?', 'auth.noAccount': 'புதியவரா? கணக்கை உருவாக்குங்கள்', 'auth.haveAccount': 'ஏற்கனவே கணக்கு உள்ளதா? உள்நுழைக', 'auth.otpLogin': 'OTP மூலம் உள்நுழை',
+  'auth.passwordLogin': 'கடவுச்சொல் மூலம் உள்நுழை', 'auth.sendCode': 'குறியீட்டை அனுப்பு', 'auth.verify': 'சரிபார்', 'auth.resend': 'குறியீட்டை மீண்டும் அனுப்பு', 'auth.resendIn': '{{s}} வினாடியில் மீண்டும் அனுப்பலாம்',
+  'auth.fullName': 'முழு பெயர்', 'auth.businessName': 'வணிகப் பெயர்', 'auth.businessType': 'வணிக வகை', 'auth.confirmPassword': 'கடவுச்சொல்லை உறுதிப்படுத்து', 'auth.terms': 'விதிமுறைகள் மற்றும் தனியுரிமைக் கொள்கையை ஏற்கிறேன்',
+  'auth.otpTitle': 'உங்கள் மொபைலை சரிபார்க்கவும்', 'auth.otpHelp': '{{to}} எண்ணுக்கு 6 இலக்க குறியீட்டை அனுப்பினோம்.', 'auth.reset': 'கடவுச்சொல்லை மீட்டமை', 'auth.newPassword': 'புதிய கடவுச்சொல்',
+  'auth.workspacePicker': 'பணியிடத்தைத் தேர்ந்தெடுக்கவும்',
+
+  'dash.messages': 'அனுப்பிய செய்திகள்', 'dash.delivery': 'டெலிவரி விகிதம்', 'dash.leads': 'புதிய லீட்கள்', 'dash.reviews': 'மதிப்புரை கோரிக்கைகள்', 'dash.wallet': 'வாலட் இருப்பு',
+  'dash.lowWallet': 'உங்கள் வாலட் இருப்பு குறைவாக உள்ளது. பிரச்சாரங்கள் தொடர ரீசார்ஜ் செய்யவும்.', 'dash.onboarding': 'தொடங்குங்கள்',
+
+  'earn.pending': 'நிலுவையில்', 'earn.available': 'கிடைக்கும்', 'earn.paid': 'செலுத்தியது', 'earn.clicks': 'கிளிக்குகள்', 'earn.conversions': 'மாற்றங்கள்',
+  'earn.kycNeeded': 'வருவாயை எடுக்க KYC ஐ முடிக்கவும்.',
+};

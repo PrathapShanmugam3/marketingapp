@@ -117,6 +117,33 @@ public class AuthService {
         return issue(user, ids[1], true, ip, ua);
     }
 
+    /** Resend the sign-up OTP using the sealed token from step 1 (the form data never leaves the server). */
+    public Map<String, Object> resendSignupOtp(String signupToken, String ip) {
+        limiter.check("signup-resend:" + ip, 10, Duration.ofHours(1));
+        Map<String, Object> p;
+        try {
+            p = Json.map(crypto.unseal(signupToken));
+        } catch (Exception e) {
+            throw ApiException.badRequest("Your sign-up session expired. Please start again.");
+        }
+        if (((Number) p.get("exp")).longValue() < System.currentTimeMillis()) throw ApiException.badRequest("Your sign-up session expired. Please start again.");
+        OtpService.Sent s = otp.send((String) p.get("phone"), "SIGNUP");
+        Map<String, Object> out = new LinkedHashMap<>();
+        out.put("resendAfterSeconds", s.resendAfterSeconds());
+        if (s.devOtp() != null) out.put("devOtp", s.devOtp());
+        return out;
+    }
+
+    /** Live duplicate check used by the sign-up form on blur (rate limited). */
+    public Map<String, Object> availability(String phone, String email, String ip) {
+        limiter.check("avail:" + ip, 40, Duration.ofMinutes(15));
+        Map<String, Object> out = new LinkedHashMap<>();
+        String p = phone == null ? null : Phones.e164(phone);
+        out.put("phoneTaken", p != null && db.exists("select 1 from users where phone=:p", "p", p));
+        out.put("emailTaken", email != null && !email.isBlank() && db.exists("select 1 from users where email=:e", "e", email.trim().toLowerCase()));
+        return out;
+    }
+
     // ----------------------------------------------------------------- login
 
     public Map<String, Object> sendOtp(String target, String purpose, String ip) {
