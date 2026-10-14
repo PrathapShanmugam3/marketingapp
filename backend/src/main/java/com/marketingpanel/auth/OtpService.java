@@ -34,7 +34,7 @@ public class OtpService {
             long wait = 30 - Duration.between(last.get().t("created_at"), now).toSeconds();
             throw ApiException.rateLimited((int) Math.max(1, wait));
         }
-        long recent = db.count("select count(*) from otp_codes where target=:t and created_at > :since", "t", targetPhone,
+        long recent = db.count("select count(*) from otp_codes where target=:t and purpose=:p and created_at > :since", "t", targetPhone, "p", purpose,
                 "since", now.minusMinutes(15));
         if (recent >= 3) throw ApiException.rateLimited(15 * 60);
         String code = Ids.otp();

@@ -17,4 +17,7 @@ public final class Events {
     public record LinkClicked(long workspaceId, long contactId, long linkId) {}
 
     public record OptedOut(long workspaceId, long contactId) {}
+
+    /** Payout status reported by the gateway (webhook or status poll). */
+    public record PayoutEvent(String payoutRef, String status, String utr, String reason) {}
 }

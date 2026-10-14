@@ -168,7 +168,6 @@ public class SocialService implements JobHandler {
         if (post == null || !"PUBLISHING".equals(post.s("status"))) return;
         List<String> media = new ArrayList<>();
         if (post.s("media_json") != null) Json.list(post.s("media_json")).forEach(o -> media.add(String.valueOf(o)));
-        boolean retryLater = false;
         for (Row t : db.rows("select t.*, a.platform, a.external_id, a.access_token_enc, a.name from social_post_targets t join social_accounts a on a.id=t.social_account_id " +
                 "where t.post_id=:id and t.status='PENDING' and (t.next_retry_at is null or t.next_retry_at <= :now)", "id", id, "now", Time.now())) {
             try {
@@ -183,12 +182,13 @@ public class SocialService implements JobHandler {
                 } else {
                     db.update("update social_post_targets set attempts=:a, error_message=:m, next_retry_at=:n where id=:id", "a", attempts, "m", msg,
                             "n", Time.now().plusMinutes(RETRY_MINUTES[attempts - 1]), "id", t.l("id"));
-                    retryLater = true;
                 }
             }
         }
-        if (retryLater) {
-            jobs.enqueue("POST_PUBLISH", Map.of("postId", id), Time.now().plusMinutes(1), 4, 1);
+        Row nextDue = db.row("select min(next_retry_at) as t, count(*) as n from social_post_targets where post_id=:id and status='PENDING'", "id", id).orElse(null);
+        if (nextDue != null && nextDue.l("n") > 0) { // some accounts still waiting for a retry: finish later, never mark the post done early
+            LocalDateTime when = nextDue.t("t") == null ? Time.now().plusMinutes(1) : nextDue.t("t");
+            jobs.enqueue("POST_PUBLISH", Map.of("postId", id), when, 4, 1);
             return;
         }
         long published = db.count("select count(*) from social_post_targets where post_id=:id and status='PUBLISHED'", "id", id);

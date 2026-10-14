@@ -76,7 +76,7 @@ public class AiService {
             out = fallback(type, topic, r.language(), r.tone());
             tokens = out.length() / 4;
         }
-        out = Norm.plain(out);
+        out = Norm.stripTags(out);
         long id = db.insertInto("ai_generations", "workspace_id", ws, "user_id", userId, "type", type, "language", r.language(),
                 "prompt", topic.length() > 1000 ? topic.substring(0, 1000) : topic, "output", out, "tokens_used", tokens);
         return Map.of("id", id, "output", out, "used", used + 1, "limit", limit(ws));

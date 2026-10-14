@@ -62,3 +62,7 @@ ALTER TABLE `ticket_messages`
 
 ALTER TABLE `short_links`
   ADD COLUMN `title` VARCHAR(100) NULL;
+
+-- OTP purposes for promoter payout methods and withdrawals (P36, P37).
+ALTER TABLE `otp_codes`
+  MODIFY `purpose` ENUM('SIGNUP','LOGIN','RESET_PASSWORD','CHANGE_PHONE','PAYOUT_METHOD','WITHDRAW') NOT NULL;

@@ -76,7 +76,7 @@ public class TemplateService implements JobHandler {
         } else if (!"NONE".equals(headerType) && (r.headerMediaUrl() == null || r.headerMediaUrl().isBlank())) {
             errs.add(new FieldErr("headerMediaUrl", "template.header.media", "Upload the header file."));
         }
-        String body = r.body() == null ? "" : r.body().trim();
+        String body = r.body() == null ? "" : Norm.stripTags(r.body());
         if (body.isEmpty() || body.length() > 1024) errs.add(new FieldErr("body", "template.body", "Body must be 1 to 1,024 characters."));
         int vars = body.isEmpty() ? 0 : validateVariables(body, "body", errs);
         List<String> samples = r.sampleValues() == null ? List.of() : r.sampleValues();

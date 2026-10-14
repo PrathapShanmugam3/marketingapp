@@ -42,6 +42,15 @@ public final class Norm {
         return s == null ? null : BASIC.sanitize(s);
     }
 
+    private static final Pattern TAGS = Pattern.compile("<[^>]*>");
+
+    /** Removes anything that looks like a tag but keeps text such as {{1}} placeholders intact (template bodies, AI output). */
+    public static String stripTags(String s) {
+        if (s == null) return null;
+        String out = TAGS.matcher(s).replaceAll("").replace("<", "").replace(">", "");
+        return out.trim();
+    }
+
     public static boolean hasControlChars(String s) {
         if (s == null) return false;
         for (int i = 0; i < s.length(); i++) {
