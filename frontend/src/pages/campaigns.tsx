@@ -267,7 +267,7 @@ export function CampaignWizard() {
           </div>
         )}
         <div className="mt-6 flex flex-wrap justify-between gap-2">
-          <div className="flex gap-2">{step > 1 && <Button variant="ghost" onClick={() => setStep(step - 1)}>Back</Button>}{step < 4 && validate(0) && <Button variant="ghost" busy={busy} onClick={async () => { if (validate(1) && (await saveDraft())) { toast.success('Draft saved.'); } }}>Save draft</Button>}</div>
+          <div className="flex gap-2">{step > 1 && <Button variant="ghost" onClick={() => setStep(step - 1)}>Back</Button>}{step < 4 && <Button variant="ghost" busy={busy} onClick={async () => { if (validate(1) && (await saveDraft())) { toast.success('Draft saved.'); } }}>Save draft</Button>}</div>
           {step < 4 ? <Button busy={busy} onClick={next}>{step === 3 ? 'Review' : 'Next'}</Button>
             : <Button busy={busy} disabled={!estimate || estimate.recipients < 1 || !estimate.sufficient || !estimate.withinLimit} onClick={() => setConfirm(true)}>{sendMode === 'schedule' ? 'Schedule campaign' : 'Send campaign'}</Button>}
         </div>

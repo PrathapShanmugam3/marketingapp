@@ -1,0 +1,46 @@
+# Local / single-host deployment: MySQL 8 + Spring Boot API/worker + Caddy serving the React app.
+#   cp .env.example .env   (edit secrets)   &&   docker compose up --build
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: marketing_panel
+      MYSQL_USER: mp
+      MYSQL_PASSWORD: ${DB_PASSWORD:-mp-change-me}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root-change-me}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_0900_ai_ci", "--default-time-zone=+00:00"]
+    volumes: [dbdata:/var/lib/mysql]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_ROOT_PASSWORD:-root-change-me}"]
+      interval: 5s
+      retries: 20
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      db: { condition: service_healthy }
+    env_file: [.env]
+    environment:
+      DB_URL: jdbc:mysql://db:3306/marketing_panel?useUnicode=true&characterEncoding=utf8&connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true
+      DB_USER: mp
+      DB_PASSWORD: ${DB_PASSWORD:-mp-change-me}
+    volumes: [uploads:/data/uploads]
+    expose: ["8080"]
+
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on: [backend]
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:-:80}
+      BACKEND: backend:8080
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:-dev-internal-token}
+    ports: ["80:80", "443:443"]
+    volumes: [caddy_data:/data]
+
+volumes:
+  dbdata:
+  uploads:
+  caddy_data:

@@ -64,6 +64,11 @@ app:
     dev-echo: ${OTP_DEV_ECHO:false}       # returns the OTP in API responses; development only
   admin:
     ip-allowlist: ${ADMIN_IP_ALLOWLIST:}  # comma separated IPs / CIDRs, empty = any
+    bootstrap-email: ${ADMIN_BOOTSTRAP_EMAIL:}      # first staff account; remove after the first start
+    bootstrap-phone: ${ADMIN_BOOTSTRAP_PHONE:}
+    bootstrap-password: ${ADMIN_BOOTSTRAP_PASSWORD:}
+    bootstrap-name: ${ADMIN_BOOTSTRAP_NAME:Platform Admin}
+    bootstrap-role: ${ADMIN_BOOTSTRAP_ROLE:SUPER_ADMIN}
   captcha:
     secret: ${CAPTCHA_SECRET:}            # Cloudflare Turnstile secret; empty = accept any token
   social:

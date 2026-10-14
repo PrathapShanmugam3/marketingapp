@@ -55,8 +55,9 @@ public class DomainController {
 
     /** Caddy `on_demand_tls { ask ... }`: 200 = issue a certificate, anything else = refuse. Internal network or token only. */
     @GetMapping("/internal/tls/ask")
-    public ResponseEntity<String> ask(@RequestParam(required = false) String domain, @RequestHeader(name = "X-Internal-Token", required = false) String token,
-                                      HttpServletRequest req) {
+    public ResponseEntity<String> ask(@RequestParam(required = false) String domain, @RequestHeader(name = "X-Internal-Token", required = false) String headerToken,
+                                      @RequestParam(name = "token", required = false) String queryToken, HttpServletRequest req) {
+        String token = headerToken != null ? headerToken : queryToken;
         boolean local = "127.0.0.1".equals(req.getRemoteAddr()) || "0:0:0:0:0:0:0:1".equals(req.getRemoteAddr()) || req.getRemoteAddr().startsWith("10.")
                 || req.getRemoteAddr().startsWith("172.") || req.getRemoteAddr().startsWith("192.168.");
         if (!local && !Hashing.constantEquals(settings.internalToken, token)) return ResponseEntity.status(403).build();

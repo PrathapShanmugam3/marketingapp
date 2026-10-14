@@ -34,15 +34,23 @@ export const rememberWorkspace = (id: number | null) => {
 
 const lang = () => { try { return localStorage.getItem('mp_lang') || 'en'; } catch { return 'en'; } };
 
-export async function refreshSession(): Promise<any | null> {
-  const res = await fetch('/api/v1/auth/refresh', {
-    method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ workspaceId: currentWorkspaceId() }),
-  });
-  if (!res.ok) return null;
-  const body = await res.json();
-  accessToken = body.accessToken;
-  return body;
+let refreshCall: Promise<any | null> | null = null;
+
+/** One refresh at a time: the refresh token rotates, so a concurrent second call would look like token reuse and end the session. */
+export function refreshSession(): Promise<any | null> {
+  if (!refreshCall) {
+    refreshCall = (async () => {
+      const res = await fetch('/api/v1/auth/refresh', {
+        method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ workspaceId: currentWorkspaceId() }),
+      });
+      if (!res.ok) return null;
+      const body = await res.json();
+      accessToken = body.accessToken;
+      return body;
+    })().finally(() => { refreshCall = null; });
+  }
+  return refreshCall;
 }
 
 async function tryRefresh(): Promise<boolean> {
