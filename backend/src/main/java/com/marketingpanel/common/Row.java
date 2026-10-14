@@ -15,7 +15,7 @@ public final class Row {
     private static final Set<String> JSON_COLUMNS = Set.of(
             "features", "custom_fields", "filter_json", "column_mapping", "buttons_json", "sample_values_json",
             "fields_json", "audience_json", "variable_mapping_json", "blocks_json", "trigger_config", "steps_json",
-            "scopes", "media_json", "payload", "old_values", "new_values", "allowed_ips", "geo", "fraud_flags", "params");
+            "scopes", "attachments_json", "media_json", "payload", "old_values", "new_values", "allowed_ips", "geo", "fraud_flags", "params");
 
     private final Map<String, Object> m;
 

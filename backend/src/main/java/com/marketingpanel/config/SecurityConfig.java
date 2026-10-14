@@ -38,10 +38,7 @@ public class SecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers(h -> h
                         .httpStrictTransportSecurity(x -> x.includeSubDomains(true).maxAgeInSeconds(31536000))
-                        .frameOptions(f -> f.deny())
-                        .contentSecurityPolicy(c -> c.policyDirectives(
-                                "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; "
-                                        + "connect-src 'self' https:; frame-ancestors 'none'"))
+                        .frameOptions(f -> f.disable())
                         .referrerPolicy(r -> r.policy(org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)))
                 .authorizeHttpRequests(a -> a
                         .requestMatchers("/api/v1/auth/**", "/api/v1/earn/signup", "/api/v1/public/**").permitAll()
