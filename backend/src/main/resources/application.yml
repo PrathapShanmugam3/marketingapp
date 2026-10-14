@@ -66,6 +66,8 @@ app:
     ip-allowlist: ${ADMIN_IP_ALLOWLIST:}  # comma separated IPs / CIDRs, empty = any
   captcha:
     secret: ${CAPTCHA_SECRET:}            # Cloudflare Turnstile secret; empty = accept any token
+  social:
+    mock: ${SOCIAL_MOCK:true}
   whatsapp:
     mock: ${WHATSAPP_MOCK:true}
     graph-url: https://graph.facebook.com/v21.0

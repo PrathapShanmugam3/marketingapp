@@ -150,7 +150,7 @@ public class ContactService {
         return Json.write(clean);
     }
 
-    public Map<String, Object> create(long ws, long userId, CrmDtos.ContactRequest r) {
+    public Map<String, Object> create(long ws, Long userId, CrmDtos.ContactRequest r) {
         validate(r);
         if (!Phones.valid(r.phone())) throw ApiException.invalid("phone", "vr.mobile.invalid", "Enter a valid 10-digit mobile number.");
         List<Long> tags = r.tagIds() == null ? List.of() : new ArrayList<>(new LinkedHashSet<>(r.tagIds()));
