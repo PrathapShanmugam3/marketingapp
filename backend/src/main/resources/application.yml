@@ -1,0 +1,111 @@
+server:
+  port: ${PORT:8080}
+  forward-headers-strategy: framework
+  compression:
+    enabled: true
+
+spring:
+  application:
+    name: marketing-panel
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/marketing_panel?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true}
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: ${DB_POOL:20}
+  flyway:
+    enabled: true
+    placeholders:
+      collation: ${DB_COLLATION:utf8mb4_0900_ai_ci}
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 25MB
+  messages:
+    basename: messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=5000,expireAfterWrite=5m
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+app:
+  role: ${APP_ROLE:all}              # all | api | worker  (workers run jobs and schedulers)
+  public-base-url: ${PUBLIC_BASE_URL:http://localhost:8080}
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  track-domain: ${TRACK_DOMAIN:localhost:8080}
+  security:
+    jwt-secret: ${JWT_SECRET:change-me-change-me-change-me-change-me-change-me}
+    encryption-key: ${ENCRYPTION_KEY:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=}   # base64, 32 bytes; override in production
+    cookie-secure: ${COOKIE_SECURE:false}
+    ip-hash-salt: ${IP_HASH_SALT:dev-salt}
+    cors-origins: ${CORS_ORIGINS:http://localhost:5173}
+    internal-token: ${INTERNAL_TOKEN:dev-internal-token}
+  otp:
+    dev-echo: ${OTP_DEV_ECHO:false}       # returns the OTP in API responses; development only
+  admin:
+    ip-allowlist: ${ADMIN_IP_ALLOWLIST:}  # comma separated IPs / CIDRs, empty = any
+  captcha:
+    secret: ${CAPTCHA_SECRET:}            # Cloudflare Turnstile secret; empty = accept any token
+  whatsapp:
+    mock: ${WHATSAPP_MOCK:true}
+    graph-url: https://graph.facebook.com/v21.0
+    rate-per-second: ${WHATSAPP_RATE:20}
+  meta:
+    app-id: ${META_APP_ID:}
+    app-secret: ${META_APP_SECRET:}
+    verify-token: ${META_VERIFY_TOKEN:dev-verify-token}
+  rupiyax:
+    mock: ${RUPIYAX_MOCK:true}
+    base-url: ${RUPIYAX_BASE_URL:https://sandbox.rupiyax.example}
+    api-key: ${RUPIYAX_API_KEY:}
+    api-secret: ${RUPIYAX_API_SECRET:}
+    webhook-secret: ${RUPIYAX_WEBHOOK_SECRET:dev-rupiyax-secret}
+  ai:
+    api-key: ${AI_API_KEY:}
+    model: ${AI_MODEL:claude-haiku-5-5}
+  storage:
+    dir: ${STORAGE_DIR:./data/uploads}
+  company:
+    state: Tamil Nadu
+    name: Marketing Panel
+    gstin: ${COMPANY_GSTIN:}
+  trial:
+    days: 14
+    plan: GROWTH
+  offers:
+    min-margin-percent: 20
+  payout:
+    tds-percent: ${TDS_PERCENT:0}
+    min-amount: 100
+    max-amount: 50000
+    max-per-day: 3
+    auto-approve-risk: 30
+    auto-approve-amount: 5000
+    batch-second-approval: 100000
+  domains:
+    skip-dns: ${SKIP_DNS_CHECK:false}
+    cname-target: connect.localhost
+    server-ip: 127.0.0.1
+  jobs:
+    enabled: true
+    poll-ms: 1000

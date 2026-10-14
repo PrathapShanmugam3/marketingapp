@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: ${TEST_DB_URL:jdbc:mysql://localhost:3306/marketing_panel_test?useUnicode=true&characterEncoding=utf8&connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true}
+    username: ${TEST_DB_USER:mp}
+    password: ${TEST_DB_PASSWORD:mp}
+  flyway:
+    clean-disabled: false
+    placeholders:
+      collation: ${TEST_DB_COLLATION:utf8mb4_unicode_ci}
+app:
+  otp:
+    dev-echo: true
+  storage:
+    dir: ${java.io.tmpdir}/mp-test-uploads
+  domains:
+    skip-dns: true
+  jobs:
+    enabled: false
+logging:
+  level:
+    com.marketingpanel: INFO
