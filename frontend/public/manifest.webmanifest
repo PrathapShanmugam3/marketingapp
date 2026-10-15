@@ -1,0 +1,2 @@
+{ "name": "Marketing Panel", "short_name": "MP Panel", "start_url": "/", "display": "standalone", "background_color": "#0B1A33", "theme_color": "#0B1A33",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }] }
