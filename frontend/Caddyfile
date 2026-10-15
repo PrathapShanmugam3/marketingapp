@@ -9,7 +9,7 @@
 }
 
 (backend_paths) {
-	@backend path /api/* /ws/* /f/* /l/* /o/* /r/* /p/* /pb /files/* /dev/* /webhooks/*
+	@backend path /api/* /ws/* /f/* /l/* /o/* /r/* /p/* /b/* /c/* /u/* /pb /files/* /dev/* /webhooks/*
 	reverse_proxy @backend {$BACKEND:backend:8080}
 }
 

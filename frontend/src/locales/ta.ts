@@ -23,6 +23,7 @@ export const ta: Record<string, string> = {
   'nav.domains': 'டொமைன்கள்', 'nav.api': 'API விசைகள்', 'nav.profile': 'என் சுயவிவரம்', 'nav.business': 'வணிக சுயவிவரம்', 'nav.support': 'உதவி', 'nav.agency': 'வாடிக்கையாளர் பணியிடங்கள்',
   'nav.earn': 'வருவாய்', 'nav.offerwall': 'சலுகைப் பட்டியல்', 'nav.payoutMethods': 'பணம் பெறும் முறைகள்', 'nav.withdraw': 'பணம் எடுக்க', 'nav.kyc': 'KYC',
   'nav.admin': 'நிர்வாகம்', 'nav.finance': 'நிதி', 'nav.logout': 'வெளியேறு', 'nav.more': 'மேலும்', 'nav.growth': 'வளர்ச்சி', 'nav.settings': 'அமைப்புகள்',
+  'nav.dm': 'சமூக செய்திகள்', 'nav.broadcasts': 'மின்னஞ்சல், SMS, புஷ்', 'nav.chatbot': 'சாட்போட்', 'nav.catalog': 'பொருள் பட்டியல்', 'nav.rewards': 'கூப்பன் மற்றும் லாயல்டி', 'nav.content': 'உள்ளடக்கம் மற்றும் SEO', 'nav.ads': 'விளம்பர பிரச்சாரங்கள்', 'nav.analytics': 'பகுப்பாய்வு',
 
   'common.save': 'சேமி', 'common.cancel': 'ரத்து', 'common.delete': 'நீக்கு', 'common.edit': 'திருத்து', 'common.add': 'சேர்', 'common.create': 'உருவாக்கு', 'common.search': 'தேடு',
   'common.loading': 'ஏற்றுகிறது…', 'common.confirm': 'உறுதிப்படுத்து', 'common.back': 'பின்', 'common.next': 'அடுத்து', 'common.send': 'அனுப்பு', 'common.download': 'பதிவிறக்கு',

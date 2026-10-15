@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 const target = process.env.VITE_API_TARGET || 'http://localhost:8080';
 // Anchored so SPA routes such as /leads, /forms or /reviews are not mistaken for /l/, /f/ or /r/.
-const proxied = ['/api/', '^/f/', '^/l/', '^/o/', '^/r/', '^/p/', '^/files/', '^/dev/', '^/webhooks/'];
+const proxied = ['/api/', '^/f/', '^/l/', '^/o/', '^/r/', '^/p/', '^/files/', '^/dev/', '^/webhooks/', '^/b/', '^/c/', '^/u/'];
 
 export default defineConfig({
   plugins: [react()],

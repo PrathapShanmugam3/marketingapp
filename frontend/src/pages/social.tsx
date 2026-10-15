@@ -87,7 +87,7 @@ function Composer({ open, onClose, accounts, onDone }: { open: boolean; onClose:
   });
   return (
     <Modal open={open} onClose={onClose} wide title="New post" footer={<><Button variant="ghost" onClick={onClose}>Close</Button>
-      <Button busy={post.isPending} disabled={!ids.length || !caption.trim() || (hasIg && !media.length)} onClick={() => post.mutate()}>{when ? 'Schedule' : 'Publish now'}</Button></>}>
+      <Button busy={post.isPending} disabled={!ids.length || !caption.trim() || (hasIg && !media.length) || (type !== 'TEXT' && !media.length)} onClick={() => post.mutate()}>{when ? 'Schedule' : 'Publish now'}</Button></>}>
       <div className="space-y-3">
         <div className="flex flex-wrap gap-2">{accounts.filter((a) => a.status === 'CONNECTED').map((a) => (
           <label key={a.id} className="flex items-center gap-2 rounded-lg border px-2 py-1 text-sm" style={{ borderColor: 'var(--border)' }}>
@@ -96,7 +96,7 @@ function Composer({ open, onClose, accounts, onDone }: { open: boolean; onClose:
           {errs.caption && <p className="text-sm text-red-600">{errs.caption}</p>}</div>
         <AiAssistant kind="CAPTION" compact onUse={setCaption} />
         <div className="grid grid-cols-2 gap-2">
-          <div><label className="label" htmlFor="sp-type">Type</label><select id="sp-type" className="input" value={type} onChange={(e) => setType(e.target.value)}><option value="IMAGE">Image</option><option value="VIDEO">Video / Reel</option></select></div>
+          <div><label className="label" htmlFor="sp-type">Type</label><select id="sp-type" className="input" value={type} onChange={(e) => setType(e.target.value)}><option value="IMAGE">Image</option><option value="VIDEO">Video / Reel</option><option value="TEXT">Text only</option></select></div>
           <div><label className="label" htmlFor="sp-when">Schedule (IST, empty = now)</label><input id="sp-when" type="datetime-local" className="input" value={when} onChange={(e) => setWhen(e.target.value)} /></div>
         </div>
         <div><label className="label">Media {hasIg && <span className="muted">(required for Instagram)</span>}</label>
@@ -120,7 +120,7 @@ function ConnectModal({ open, onClose, onDone }: { open: boolean; onClose: () =>
     <Modal open={open} onClose={onClose} title="Connect account" footer={<><Button variant="ghost" onClick={onClose}>Cancel</Button><Button busy={m.isPending} disabled={!v.externalId || !v.name || !v.accessToken} onClick={() => m.mutate()}>Connect</Button></>}>
       <div className="space-y-3">
         <Alert tone="blue">Sign in with Facebook from your Meta Business account and paste the page details here. Tokens are stored encrypted.</Alert>
-        <select className="input" aria-label="Platform" value={v.platform} onChange={(e) => set('platform', e.target.value)}><option value="FACEBOOK">Facebook page</option><option value="INSTAGRAM">Instagram business</option></select>
+        <select className="input" aria-label="Platform" value={v.platform} onChange={(e) => set('platform', e.target.value)}><option value="FACEBOOK">Facebook page</option><option value="INSTAGRAM">Instagram business</option><option value="LINKEDIN">LinkedIn (member or company URN)</option><option value="X">X (Twitter)</option><option value="YOUTUBE">YouTube channel</option></select>
         <input className="input" placeholder="Page / account ID" aria-label="Account id" value={v.externalId} onChange={(e) => set('externalId', e.target.value.trim())} />
         <input className="input" placeholder="Account name" aria-label="Account name" value={v.name} onChange={(e) => set('name', e.target.value)} />
         <input className="input" type="password" placeholder="Access token" aria-label="Access token" autoComplete="off" value={v.accessToken} onChange={(e) => set('accessToken', e.target.value.trim())} />

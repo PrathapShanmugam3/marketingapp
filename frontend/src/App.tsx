@@ -21,6 +21,13 @@ import { Conversions, OfferEditor, OffersList } from './pages/offers';
 import { EarnDashboard, EarnSignup, Earnings, Kyc, OfferWall, Payouts } from './pages/earn';
 import { AdminHome, AdminRatesPlans, AdminSystem, AdminWorkspaces, Finance } from './pages/admin';
 import { TicketThread, Tickets } from './pages/support';
+import { BroadcastEditor, Broadcasts } from './pages/broadcasts';
+import { Chatbot } from './pages/chatbot';
+import { Catalog, Rewards } from './pages/commerce';
+import { ContentCalendar, ContentEditor, SeoTools } from './pages/content';
+import { AdDetail, AdsList } from './pages/ads';
+import { Analytics } from './pages/analytics';
+import { SocialDm } from './pages/dm';
 
 const qc = new QueryClient({
   defaultOptions: {
@@ -55,11 +62,19 @@ function BusinessShell() {
     { items: [{ to: '/', key: 'nav.dashboard', label: 'Dashboard', icon: 'home', end: true, show: !staff }] },
     { title: 'Customers', items: [
       { to: '/contacts', key: 'nav.contacts', label: 'Contacts', icon: 'users' }, { to: '/leads', key: 'nav.leads', label: 'Leads', icon: 'briefcase' },
-      { to: '/inbox', key: 'nav.inbox', label: 'Inbox', icon: 'chat' }, { to: '/forms', key: 'nav.forms', label: 'Lead forms', icon: 'file', show: m }] },
+      { to: '/inbox', key: 'nav.inbox', label: 'Inbox', icon: 'chat' }, { to: '/social/dm', key: 'nav.dm', label: 'Social messages', icon: 'chat', show: hasFeature('dm') },
+      { to: '/forms', key: 'nav.forms', label: 'Lead forms', icon: 'file', show: m }] },
     { title: 'Marketing', items: [
       { to: '/campaigns', key: 'nav.campaigns', label: 'Campaigns', icon: 'megaphone', show: m }, { to: '/templates', key: 'nav.templates', label: 'Templates', icon: 'send', show: m },
-      { to: '/automations', key: 'nav.automations', label: 'Automations', icon: 'zap', show: m }, { to: '/reviews', key: 'nav.reviews', label: 'Reviews', icon: 'star' },
+      { to: '/broadcasts', key: 'nav.broadcasts', label: 'E-mail, SMS, push', icon: 'send', show: m },
+      { to: '/automations', key: 'nav.automations', label: 'Automations', icon: 'zap', show: m }, { to: '/chatbot', key: 'nav.chatbot', label: 'Chatbot', icon: 'zap', show: m },
+      { to: '/reviews', key: 'nav.reviews', label: 'Reviews', icon: 'star' },
       { to: '/social', key: 'nav.social', label: 'Social posts', icon: 'globe', show: m && hasFeature('social') }] },
+    { title: 'Sell and retain', items: [
+      { to: '/catalog', key: 'nav.catalog', label: 'Catalog', icon: 'grid', show: m }, { to: '/rewards', key: 'nav.rewards', label: 'Coupons and loyalty', icon: 'tag', show: m }] },
+    { title: 'Content and ads', items: [
+      { to: '/content', key: 'nav.content', label: 'Content and SEO', icon: 'file', show: m }, { to: '/ads', key: 'nav.ads', label: 'Ad campaigns', icon: 'megaphone', show: m },
+      { to: '/analytics', key: 'nav.analytics', label: 'Analytics', icon: 'chart', show: m }] },
     { title: 'Growth', items: [
       { to: '/links', key: 'nav.links', label: 'Smart links', icon: 'link', show: m }, { to: '/pages', key: 'nav.pages', label: 'Landing pages', icon: 'grid', show: m },
       { to: '/apps', key: 'nav.apps', label: 'App promotion', icon: 'phone', show: m }, { to: '/growth/offers', key: 'nav.offers', label: 'Offers', icon: 'cash', show: m }] },
@@ -120,7 +135,11 @@ export default function App() {
                 <Route path="whatsapp" element={<WhatsAppConnect />} /><Route path="templates" element={<TemplatesList />} /><Route path="templates/new" element={<TemplateBuilder />} /><Route path="templates/:id" element={<TemplateBuilder />} />
                 <Route path="campaigns" element={<CampaignList />} /><Route path="campaigns/new" element={<CampaignWizard />} /><Route path="campaigns/:id/edit" element={<CampaignWizard />} /><Route path="campaigns/:id" element={<CampaignReport />} />
                 <Route path="automations" element={<AutomationsList />} /><Route path="automations/:id" element={<AutomationEditor />} />
-                <Route path="reviews" element={<Reviews />} /><Route path="social" element={<Social />} />
+                <Route path="reviews" element={<Reviews />} /><Route path="social" element={<Social />} /><Route path="social/dm" element={<SocialDm />} />
+                <Route path="broadcasts" element={<Broadcasts />} /><Route path="broadcasts/:id" element={<BroadcastEditor />} /><Route path="chatbot" element={<Chatbot />} />
+                <Route path="catalog" element={<Catalog />} /><Route path="rewards" element={<Rewards />} />
+                <Route path="content" element={<ContentCalendar />} /><Route path="content/:id" element={<ContentEditor />} /><Route path="seo" element={<SeoTools />} />
+                <Route path="ads" element={<AdsList />} /><Route path="ads/:id" element={<AdDetail />} /><Route path="analytics" element={<Analytics />} />
                 <Route path="links" element={<Links />} /><Route path="links/:id" element={<LinkDetail />} />
                 <Route path="pages" element={<PagesList />} /><Route path="pages/:id" element={<PageEditor />} /><Route path="apps" element={<Apps />} />
                 <Route path="growth/offers" element={<OffersList />} /><Route path="growth/offers/:id" element={<OfferEditor />} /><Route path="growth/conversions" element={<Conversions />} />

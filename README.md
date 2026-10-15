@@ -11,6 +11,7 @@ Implements `Marketing_Panel_SRS_v1.0` on the supplied `schema.sql`.
 Three portals share one login and one API:
 
 * **Business panel** (`/`) - contacts and import, leads board, WhatsApp connect and templates, campaigns (A/B tests, scheduling, live progress), inbox, Google reviews, lead forms, social posts, automations, short links and QR, landing pages, app promotion, offers and conversions, team, billing and wallet, domains, API keys, agency client workspaces, support.
+* **Marketing suite** (Growth and Agency plans) - e-mail, SMS and web-push broadcasts with unsubscribe, a keyword **chatbot** for WhatsApp, a product **catalog** (public page + share on WhatsApp), **coupons** and a **loyalty / referral** program, a **content calendar and blog** with SEO checklist, sitemap and a page **SEO audit** with keyword rank log, **ad campaign** tracking (spend, CTR, CPA, ROAS; CSV import), Messenger / Instagram **DMs**, posting to **X, LinkedIn and YouTube** accounts, and a cross-channel **analytics** page.
 * **Promoter portal** (`/earn`) - join, dashboard, offer wall with tracking links, PAN KYC, bank/UPI payout methods, withdrawals, history, support.
 * **Admin console** (`/admin`) - platform stats, workspaces (suspend, wallet adjustments), message rates and plans, finance (payout queue with two-person approval, promoters, fraud flags, reconciliation, ledger check), audit log, dead jobs, support tickets.
 
@@ -58,6 +59,19 @@ cd frontend && npm test && npm run build
 | Custom domains | Caddy (`frontend/Caddyfile`) issues certificates on demand after the backend confirms DNS ownership (`/internal/tls/ask`) |
 
 Run several instances with `APP_ROLE=api` (HTTP only) and `APP_ROLE=worker` (job queue and schedulers); `all` does both. Scheduled jobs use ShedLock so only one instance runs each.
+
+### Marketing suite: what is real and what is sandboxed
+
+| Module | Real | Sandbox / needs you |
+|---|---|---|
+| E-mail | SMTP delivery when `NOTIFY_PROVIDER=real` and `SPRING_MAIL_*` are set; signed one-click unsubscribe; daily limit | default writes to the log |
+| SMS | HTTP gateway call (`SMS_GATEWAY_URL`, `SMS_API_KEY`), wallet billing per segment, refund of failures | India needs a DLT-registered sender and template with your provider; adapt `ProviderNotifier.sms` if your gateway's payload differs |
+| Web push | subscription API | delivery is logged only; add a `PushSender` bean using VAPID keys + a web-push library to send for real |
+| Chatbot, catalog, coupons, loyalty, content, SEO checklist, analytics | fully functional | - |
+| SEO page audit | fetches public https pages (SSRF-guarded) | rankings are entered by hand (search engines have no ranking API) |
+| Ads | tracker, KPIs, CSV import | automatic sync needs a Google Ads / Meta Marketing API connector implementing `AdsClient` (sandbox generates sample numbers) |
+| Messenger / Instagram DMs | Graph API send + webhook `/webhooks/social` | simulate button in sandbox |
+| X / LinkedIn posting | text and link posts via their APIs when `SOCIAL_MOCK=false` | YouTube upload is not implemented; image/video posting for X and LinkedIn is not implemented |
 
 ## Design notes
 

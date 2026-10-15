@@ -54,6 +54,8 @@ public class Settings {
     public final String cnameTarget;
     public final String serverIp;
     public final boolean jobsEnabled;
+    public final boolean socialMock;
+    public final boolean adsMock;
 
     public Settings(
             @Value("${app.role}") String role,
@@ -99,7 +101,9 @@ public class Settings {
             @Value("${app.domains.skip-dns}") boolean skipDns,
             @Value("${app.domains.cname-target}") String cnameTarget,
             @Value("${app.domains.server-ip}") String serverIp,
-            @Value("${app.jobs.enabled}") boolean jobsEnabled) {
+            @Value("${app.jobs.enabled}") boolean jobsEnabled,
+            @Value("${app.social.mock:true}") boolean socialMock,
+            @Value("${app.ads.mock:true}") boolean adsMock) {
         this.role = role;
         this.publicBaseUrl = publicBaseUrl.replaceAll("/+$", "");
         this.frontendUrl = frontendUrl.replaceAll("/+$", "");
@@ -144,6 +148,8 @@ public class Settings {
         this.cnameTarget = cnameTarget;
         this.serverIp = serverIp;
         this.jobsEnabled = jobsEnabled;
+        this.socialMock = socialMock;
+        this.adsMock = adsMock;
     }
 
     private static List<String> split(String s) {

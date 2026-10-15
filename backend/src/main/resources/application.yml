@@ -39,6 +39,9 @@ spring:
       spec: maximumSize=5000,expireAfterWrite=5m
 
 management:
+  health:
+    mail:
+      enabled: false
   endpoints:
     web:
       exposure:
@@ -113,6 +116,18 @@ app:
     skip-dns: ${SKIP_DNS_CHECK:false}
     cname-target: connect.localhost
     server-ip: 127.0.0.1
+  notify:                                   # real e-mail also needs SPRING_MAIL_HOST / _PORT / _USERNAME / _PASSWORD
+    provider: ${NOTIFY_PROVIDER:log}        # log | real  (real = SMTP for e-mail, HTTP gateway for SMS)
+    mail-from: ${MAIL_FROM:no-reply@localhost}
+  sms:
+    url: ${SMS_GATEWAY_URL:}                # POST {"to","text","sender"} with Bearer key
+    api-key: ${SMS_API_KEY:}
+    sender-id: ${SMS_SENDER_ID:MKTPNL}      # DLT-registered header
+    rate: ${SMS_RATE:0.25}                  # sell price per 160-character segment (INR)
+  email:
+    daily-limit: ${EMAIL_DAILY_LIMIT:2000}  # per workspace
+  ads:
+    mock: ${ADS_MOCK:true}
   jobs:
     enabled: true
     poll-ms: 1000

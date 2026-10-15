@@ -26,7 +26,7 @@ export function Inbox() {
         <div className={sel ? 'hidden md:block' : ''}>
           <input className="input mb-2" placeholder="Search name or number" aria-label="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
           <div className="mb-2 flex flex-wrap items-center gap-2 text-sm">
-            {['OPEN', 'RESOLVED'].map((s) => <button key={s} className={status === s ? 'btn-primary !py-1' : 'btn-ghost !py-1'} onClick={() => setStatus(s)}>{s === 'OPEN' ? 'Open' : 'Resolved'}</button>)}
+            {['OPEN', 'CLOSED'].map((s) => <button key={s} className={status === s ? 'btn-primary !py-1' : 'btn-ghost !py-1'} onClick={() => setStatus(s)}>{s === 'OPEN' ? 'Open' : 'Closed'}</button>)}
             <label className="ml-auto flex items-center gap-1"><input type="checkbox" checked={unread} onChange={(e) => setUnread(e.target.checked)} /> Unread</label>
           </div>
           {list.isLoading ? <Loading /> : (list.data?.length ?? 0) === 0 ? <EmptyState text="No conversations yet. Replies to your campaigns will show up here." /> : (
@@ -92,7 +92,7 @@ function Thread({ conv, canAssign, onBack, onChanged }: { conv: any; canAssign: 
           </select>
         )}
         <StatusBadge status={conv.status} />
-        <Button variant="ghost" onClick={() => patch.mutate({ status: conv.status === 'OPEN' ? 'RESOLVED' : 'OPEN' })}>{conv.status === 'OPEN' ? 'Resolve' : 'Reopen'}</Button>
+        <Button variant="ghost" onClick={() => patch.mutate({ status: conv.status === 'OPEN' ? 'CLOSED' : 'OPEN' })}>{conv.status === 'OPEN' ? 'Close' : 'Reopen'}</Button>
       </div>
       <div className="flex-1 space-y-2 overflow-y-auto p-3">
         {msgs.isLoading ? <Loading /> : msgs.data.items.map((m: any) => (

@@ -20,7 +20,7 @@ export function Dashboard() {
   const d = q.data;
   const ob = d?.onboarding ?? {};
   const steps = [
-    { done: ob.whatsappConnected, label: 'Connect WhatsApp', to: '/settings/whatsapp' },
+    { done: ob.whatsappConnected, label: 'Connect WhatsApp', to: '/whatsapp' },
     { done: ob.contactsImported, label: 'Add or import contacts', to: '/contacts/import' },
     { done: ob.firstCampaign, label: 'Send your first campaign', to: '/campaigns/new' },
   ];

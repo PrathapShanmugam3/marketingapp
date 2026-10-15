@@ -23,6 +23,7 @@ export const en: Record<string, string> = {
   'nav.domains': 'Domains', 'nav.api': 'API keys', 'nav.profile': 'My profile', 'nav.business': 'Business profile', 'nav.support': 'Support', 'nav.agency': 'Client workspaces',
   'nav.earn': 'Earnings', 'nav.offerwall': 'Offer wall', 'nav.payoutMethods': 'Payout methods', 'nav.withdraw': 'Withdraw', 'nav.kyc': 'KYC',
   'nav.admin': 'Admin console', 'nav.finance': 'Finance', 'nav.logout': 'Log out', 'nav.more': 'More', 'nav.growth': 'Growth', 'nav.settings': 'Settings',
+  'nav.dm': 'Social messages', 'nav.broadcasts': 'E-mail, SMS, push', 'nav.chatbot': 'Chatbot', 'nav.catalog': 'Catalog', 'nav.rewards': 'Coupons and loyalty', 'nav.content': 'Content and SEO', 'nav.ads': 'Ad campaigns', 'nav.analytics': 'Analytics',
 
   'common.save': 'Save', 'common.cancel': 'Cancel', 'common.delete': 'Delete', 'common.edit': 'Edit', 'common.add': 'Add', 'common.create': 'Create', 'common.search': 'Search',
   'common.loading': 'Loading…', 'common.confirm': 'Confirm', 'common.back': 'Back', 'common.next': 'Next', 'common.send': 'Send', 'common.download': 'Download',

@@ -13,4 +13,10 @@ public class MockSocialClient implements SocialClient {
         if (r.caption() != null && r.caption().contains("FAILPUBLISH")) throw new SocialException("Sandbox failure requested");
         return r.platform().toLowerCase().charAt(0) + "_" + Ids.ulid();
     }
+
+    @Override
+    public String sendMessage(String platform, String pageId, String token, String recipientId, String text) {
+        if (text != null && text.contains("FAILSEND")) throw new SocialException("Sandbox failure requested");
+        return "m_" + Ids.ulid();
+    }
 }

@@ -83,6 +83,22 @@ public class DirectSendService {
         }
     }
 
+    /** Automated (chatbot) reply: same as {@link #sendText} but not attributed to a team member. */
+    public String sendBotText(long ws, long conversationId, String text) {
+        Row conv = inbox.load(ws, conversationId);
+        if (!inbox.windowOpen(conv)) return null;
+        Row acct = gw.connected(ws);
+        Row contact = db.row("select * from contacts where id=:id and workspace_id=:ws and deleted_at is null and opt_in_status<>'OPTED_OUT'", "id", conv.l("contact_id"), "ws", ws).orElse(null);
+        if (contact == null) return null;
+        try {
+            String wamid = gw.sendText(acct, contact.s("phone"), text);
+            inbox.recordOutbound(ws, contact.l("id"), wamid, "TEXT", text, null, null, null, null);
+            return wamid;
+        } catch (WaException e) {
+            return null;
+        }
+    }
+
     public static Map<String, Object> ok() {
         return Map.of("ok", true);
     }

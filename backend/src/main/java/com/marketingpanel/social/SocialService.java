@@ -45,7 +45,7 @@ public class SocialService implements JobHandler {
     public Map<String, Object> connect(long ws, AccountRequest r) {
         plans.requireFeature(ws, "social");
         List<FieldErr> errs = new ArrayList<>();
-        if (!List.of("FACEBOOK", "INSTAGRAM").contains(r.platform())) errs.add(new FieldErr("platform", "social.platform", "Choose Facebook or Instagram."));
+        if (!List.of("FACEBOOK", "INSTAGRAM", "YOUTUBE", "LINKEDIN", "X").contains(r.platform())) errs.add(new FieldErr("platform", "social.platform", "Choose a supported platform."));
         if (r.externalId() == null || r.externalId().isBlank() || r.externalId().length() > 40) errs.add(new FieldErr("externalId", "social.id", "Enter the page or account id."));
         if (r.name() == null || r.name().isBlank() || r.name().length() > 100) errs.add(new FieldErr("name", "social.name", "Enter the account name."));
         if (r.accessToken() == null || r.accessToken().isBlank()) errs.add(new FieldErr("accessToken", "social.token", "Connect your account again."));
@@ -84,6 +84,13 @@ public class SocialService implements JobHandler {
         String caption = Norm.plain(r.caption());
         boolean ig = accounts.stream().anyMatch(a -> "INSTAGRAM".equals(a.s("platform")));
         if (caption != null && Norm.hasControlChars(caption)) errs.add(new FieldErr("caption", "vr.text.unsupported", "Remove unsupported characters."));
+        boolean yt = accounts.stream().anyMatch(a -> "YOUTUBE".equals(a.s("platform")));
+        boolean x = accounts.stream().anyMatch(a -> "X".equals(a.s("platform")));
+        boolean li = accounts.stream().anyMatch(a -> "LINKEDIN".equals(a.s("platform")));
+        if (x && caption != null && caption.length() > 280) errs.add(new FieldErr("caption", "social.caption.x", "X allows up to 280 characters."));
+        if (li && caption != null && caption.length() > 3000) errs.add(new FieldErr("caption", "social.caption.li", "LinkedIn allows up to 3,000 characters."));
+        if (yt && !"VIDEO".equals(type)) errs.add(new FieldErr("postType", "social.yt", "YouTube posts need a video."));
+        if (yt && caption != null && caption.length() > 5000) errs.add(new FieldErr("caption", "social.caption.yt", "YouTube descriptions allow up to 5,000 characters."));
         if (ig && caption != null) {
             if (caption.length() > 2200 || countHashtags(caption) > 30) errs.add(new FieldErr("caption", "social.caption.ig", "Instagram allows up to 2,200 characters and 30 hashtags."));
         }
