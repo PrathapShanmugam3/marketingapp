@@ -36,15 +36,19 @@ public class AdminBootstrap implements ApplicationRunner {
         this.phone = phone;
         this.password = password;
         this.name = name;
-        this.role = role;
+        this.role = role == null || role.isBlank() ? "SUPER_ADMIN" : role.trim().toUpperCase();
     }
 
     @Override
     public void run(ApplicationArguments args) {
         if (email.isEmpty() || password.isEmpty()) return;
-        String e164 = Phones.e164(phone);
-        if (e164 == null || !java.util.List.of("SUPER_ADMIN", "FINANCE", "SUPPORT").contains(role)) {
-            log.error("Admin bootstrap skipped: set a valid ADMIN_BOOTSTRAP_PHONE and ADMIN_BOOTSTRAP_ROLE (SUPER_ADMIN, FINANCE or SUPPORT).");
+        String e164 = Phones.e164(phone == null ? "" : phone.trim());
+        if (e164 == null) {
+            log.error("Admin bootstrap skipped: ADMIN_BOOTSTRAP_PHONE '{}' is not a valid mobile number.", phone);
+            return;
+        }
+        if (!java.util.List.of("SUPER_ADMIN", "FINANCE", "SUPPORT").contains(role)) {
+            log.error("Admin bootstrap skipped: ADMIN_BOOTSTRAP_ROLE '{}' must be SUPER_ADMIN, FINANCE or SUPPORT.", role);
             return;
         }
         if (password.length() < 12) {
